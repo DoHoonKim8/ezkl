@@ -22,6 +22,7 @@ use halo2_proofs::plonk::VerifyingKey;
 use halo2_proofs::poly::commitment::CommitmentScheme;
 pub use input::DataSource;
 use itertools::Itertools;
+use plonkish_backend::frontend::halo2::CircuitExt;
 #[cfg(all(feature = "ezkl", not(target_arch = "wasm32")))]
 use tosubcommand::ToFlags;
 
@@ -1263,7 +1264,9 @@ impl GraphCircuit {
             GraphError::ReadWriteFileError(path.display().to_string(), e.to_string())
         })?;
         let reader = std::io::BufReader::with_capacity(*EZKL_BUF_CAPACITY, f);
+        println!("Loading GraphCircuit from {:?}", path);
         let result: GraphCircuit = bincode::deserialize_from(reader)?;
+        println!("Loaded GraphCircuit from {:?}", path);
 
         // check the versions matche
         crate::check_version_string_matches(&result.core.settings.version);
@@ -2197,6 +2200,23 @@ impl Circuit<Fp> for GraphCircuit {
         }
 
         Ok(())
+    }
+}
+
+impl CircuitExt<Fp> for GraphCircuit {
+    // Question : if `-W witness.json` is omitted, the `GraphWitness` is not set properly. Why?
+    fn instances(&self) -> Vec<Vec<Fp>> {
+        // let instances =  if self.settings().run_args.output_visibility.is_public() || self.settings().run_args.input_visibility.is_fixed() {
+        //     let output = self.graph_witness.get_output_tensor();
+        //     output
+        //         .into_iter()
+        //         .flat_map(|o| o.into_iter())
+        //         .collect_vec()
+        // } else {
+        //     vec![]
+        // };
+        let instances = self.prepare_public_inputs(&self.graph_witness).unwrap_or_default();
+        vec![instances]
     }
 }
 

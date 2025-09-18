@@ -1301,7 +1301,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "117725a109d387c937a1533ce01b450cbde6b88abceea8473c4d7a85853cda3c"
 dependencies = [
  "lazy_static",
- "windows-sys 0.59.0",
+ "windows-sys 0.48.0",
 ]
 
 [[package]]
@@ -1888,7 +1888,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "976dd42dc7e85965fe702eb8164f21f450704bdde31faefd6471dba214cb594e"
 dependencies = [
  "libc",
- "windows-sys 0.59.0",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -1972,6 +1972,7 @@ dependencies = [
  "num",
  "objc",
  "openssl",
+ "plonkish_backend",
  "pyo3",
  "pyo3-async-runtimes",
  "pyo3-log",
@@ -2331,6 +2332,7 @@ version = "0.14.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "85649ca51fd72272d7821adaf274ad91c288277713d9c18820d8499a7ff69e9a"
 dependencies = [
+ "serde",
  "typenum",
  "version_check",
  "zeroize",
@@ -2411,7 +2413,7 @@ dependencies = [
 [[package]]
 name = "halo2_gadgets"
 version = "0.2.0"
-source = "git+https://github.com/zkonduit/halo2?branch=ac%2Fconditional-compilation-icicle2#1dd2090741f006fd031a07da7f3c9dfce5e0015e"
+source = "git+https://github.com/zkonduit/halo2?branch=ac%2Fconditional-compilation-icicle2#01c88842679b4308e43ae5ed91c4183e861669bd"
 dependencies = [
  "arrayvec 0.7.6",
  "bitvec",
@@ -2428,8 +2430,9 @@ dependencies = [
 [[package]]
 name = "halo2_proofs"
 version = "0.3.0"
-source = "git+https://github.com/zkonduit/halo2#1dd2090741f006fd031a07da7f3c9dfce5e0015e?branch=ac%2Fconditional-compilation-icicle2#01c88842679b4308e43ae5ed91c4183e861669bd"
+source = "git+https://github.com/DoHoonKim8/halo2.git?branch=plonkish-benchmark#e7333cd9b097abb5a03af7e50b997daf11f55370"
 dependencies = [
+ "ark-std 0.4.0",
  "bincode",
  "blake2b_simd",
  "env_logger 0.10.2",
@@ -3148,7 +3151,7 @@ checksum = "e04d7f318608d35d4b61ddd75cbdaee86b023ebe2bd5a66ee0915f0bf93095a9"
 dependencies = [
  "hermit-abi 0.5.0",
  "libc",
- "windows-sys 0.59.0",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -4173,6 +4176,27 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b4596b6d070b27117e987119b4dac604f3c58cfb0b191112e24771b2faeac1a6"
 
 [[package]]
+name = "plonkish_backend"
+version = "0.1.0"
+source = "git+https://github.com/DoHoonKim8/plonkish?branch=ezkl-backend#3151aeb828da8e78d91e4a34362d419f84e7c5b4"
+dependencies = [
+ "bincode",
+ "bitvec",
+ "generic-array",
+ "halo2_proofs",
+ "halo2curves 0.7.0 (git+https://github.com/privacy-scaling-explorations/halo2curves?rev=b753a832e92d5c86c5c997327a9cf9de86a18851)",
+ "itertools 0.10.5",
+ "num-bigint",
+ "num-integer",
+ "pasta_curves",
+ "poseidon 0.2.0 (git+https://github.com/han0110/poseidon?branch=feature%2Fwith-spec)",
+ "rand 0.8.5",
+ "rayon",
+ "serde",
+ "sha3 0.10.8",
+]
+
+[[package]]
 name = "plotters"
 version = "0.3.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4219,6 +4243,15 @@ dependencies = [
 name = "poseidon"
 version = "0.2.0"
 source = "git+https://github.com/privacy-scaling-explorations/poseidon.git?tag=v2023_04_20#807f8f555313f726ca03bdf941f798098f488ba4"
+dependencies = [
+ "halo2curves 0.3.2",
+ "subtle",
+]
+
+[[package]]
+name = "poseidon"
+version = "0.2.0"
+source = "git+https://github.com/han0110/poseidon?branch=feature%2Fwith-spec#fa4c2544ed38666f1f72d1c4fd0956756a7112b3"
 dependencies = [
  "halo2curves 0.3.2",
  "subtle",
@@ -4537,7 +4570,7 @@ dependencies = [
  "once_cell",
  "socket2",
  "tracing",
- "windows-sys 0.59.0",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -5069,7 +5102,7 @@ dependencies = [
  "errno",
  "libc",
  "linux-raw-sys",
- "windows-sys 0.59.0",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -5494,7 +5527,7 @@ dependencies = [
  "num-bigint",
  "num-integer",
  "num-traits",
- "poseidon",
+ "poseidon 0.2.0 (git+https://github.com/privacy-scaling-explorations/poseidon.git?tag=v2023_04_20)",
  "rand 0.8.5",
  "revm 3.5.0",
  "serde",
@@ -5763,7 +5796,7 @@ dependencies = [
  "getrandom 0.3.2",
  "once_cell",
  "rustix",
- "windows-sys 0.59.0",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -6861,7 +6894,7 @@ version = "0.1.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cf221c93e13a30d793f7645a0e7762c55d169dbb0a49671918a2319d289b10bb"
 dependencies = [
- "windows-sys 0.59.0",
+ "windows-sys 0.48.0",
 ]
 
 [[package]]
